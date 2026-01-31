@@ -14,5 +14,6 @@ ln -sf $REPO_ROOT/tmux/tmux.conf ~/.tmux.conf
 ln -sf $REPO_ROOT/fish ~/.config/fish
 ln -sf $REPO_ROOT/starship ~/.config/starship
 ln -sf $REPO_ROOT/nvim ~/.config/nvim
+ln -sf $REPO_ROOT/brewfile ~/.config/brewfile/Brewfile
 
 echo "✅ Dotfiles installed"
