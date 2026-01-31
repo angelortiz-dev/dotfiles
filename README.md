@@ -21,38 +21,34 @@ A complete, opinionated dotfiles repository optimized for:
 
 ```text
 dotfiles/
-├── ghostty/
-│   └── config
-├── tmux/
-│   └── tmux.conf
+├── brewfile/
+│   └── Brewfile
+├── docker/
+│   └── docker-compose.debug.yml
 ├── fish/
 │   └── config.fish
-├── starship/
-│   └── starship.toml
+├── ghostty/
+│   └── config
+├── k8s/
+│   ├── base/
+│   │   └── deployment.yaml
+│   └── overlays/
+│       └── dev/
+│           └── patch-env.yaml
 ├── nvim/
 │   ├── init.lua
 │   └── lua/
 │       ├── lsp.lua
-│       ├── dap.lua
-│       ├── test.lua
-│       └── coverage.lua
-├── docker/
-│   └── docker-compose.debug.yml
-├── k8s/
-│   ├── base/
-│   │   ├── deployment.yaml
-│   │   ├── service.yaml
-│   │   └── kustomization.yaml
-│   ├── overlays/
-│   │   └── dev/
-│   │       ├── kustomization.yaml
-│   │       └── patch-env.yaml
-│   └── secrets/
-│       └── README.md
+│       └── test.lua
+├── scripts/
+│   ├── install.fish
+│   └── install.sh
 ├── secrets/
 │   └── README.md
-├── scripts/
-│   └── install.sh
+├── starship/
+│   └── starship.toml
+├── tmux/
+│   └── tmux.conf
 ├── .gitignore
 └── README.md
 ```
