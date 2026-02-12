@@ -10,7 +10,7 @@ import sys
 import subprocess
 import logging
 from pathlib import Path
-from typing import Tuple, Optional
+from typing import Tuple
 
 # Configure logging
 logging.basicConfig(
