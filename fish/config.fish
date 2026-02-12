@@ -46,3 +46,10 @@ set -gx HOMEBREW_NO_AUTO_UPDATE 1
 # Python
 set -Ux PYTHONDONTWRITEBYTECODE 1
 set -Ux PYTHONUNBUFFERED 1
+
+# Ensure mise-managed versions are loaded (managed by scripts/setup_mise.py)
+# >>> MISE INIT - managed by setup_mise.py
+if type -q mise
+  eval (mise env fish)
+end
+# <<< MISE INIT - managed by setup_mise.py
