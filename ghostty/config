@@ -2,15 +2,17 @@ theme = Catppuccin Mocha
 font-family = JetBrains Mono
 font-size = 14
 
-window-padding-x = 12
-window-padding-y = 12
+macos-titlebar-style = transparent
+
+window-padding-x = 5
+window-padding-y = 0
+window-padding-balance = true
 
 cursor-style = block
 cursor-style-blink = true
 
 shell-integration = fish
 confirm-close-surface = false
-background-opacity = 0.95
 
-macos-titlebar-style = transparent
+background-opacity = 0.95
 scrollback-limit = 100000
