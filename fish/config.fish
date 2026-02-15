@@ -18,7 +18,7 @@ fish_add_path ~/.local/bin
 # Aliases
 alias ll="eza -la --icons"
 alias ls="eza --icons"
-alias cat="bat"
+alias cat="bat --paging=never"
 alias vim="nvim"
 alias g="git"
 
@@ -50,6 +50,6 @@ set -Ux PYTHONUNBUFFERED 1
 # Ensure mise-managed versions are loaded (managed by scripts/setup_mise.py)
 # >>> MISE INIT - managed by setup_mise.py
 if type -q mise
-  eval (mise env fish)
+    eval (mise env fish)
 end
 # <<< MISE INIT - managed by setup_mise.py

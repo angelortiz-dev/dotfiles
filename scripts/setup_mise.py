@@ -9,14 +9,14 @@ This script will:
 Usage:
   python3 scripts/setup_mise.py [--yes] [--config PATH]
 """
+
 from __future__ import annotations
 
 import argparse
 import shutil
 import subprocess
-from pathlib import Path
 import sys
-
+from pathlib import Path
 
 MISE_BLOCK_BEGIN = "# >>> MISE INIT - managed by setup_mise.py"
 MISE_BLOCK_END = "# <<< MISE INIT - managed by setup_mise.py"
@@ -37,7 +37,7 @@ def ensure_mise_available() -> bool:
 def install_runtimes(runtimes: list[str]) -> None:
     for r in runtimes:
         print(f"Installing {r} via mise...")
-        rc = run(["mise", "install", r])
+        rc = run(["mise", "use", "-g", r])
         if rc == 0:
             print(f"Installed {r}")
         else:
@@ -56,9 +56,13 @@ def verify_bins_in_fish(bins: list[str]) -> bool:
     fish_cmd = f"if type -q mise; eval (mise env fish); end; {cmd}"
 
     try:
-        proc = subprocess.run(["fish", "-ic", fish_cmd], capture_output=True, text=True, check=False)
+        proc = subprocess.run(
+            ["fish", "-ic", fish_cmd], capture_output=True, text=True, check=False
+        )
     except FileNotFoundError:
-        print("fish shell not found; cannot verify binaries in fish interactive sessions.")
+        print(
+            "fish shell not found; cannot verify binaries in fish interactive sessions."
+        )
         return False
 
     out = proc.stdout.strip()
@@ -70,7 +74,11 @@ def verify_bins_in_fish(bins: list[str]) -> bool:
         line = lines[i]
         if line.endswith(":"):
             name = line[:-1]
-            val = lines[i+1] if i+1 < len(lines) and not lines[i+1].endswith(":") else ""
+            val = (
+                lines[i + 1]
+                if i + 1 < len(lines) and not lines[i + 1].endswith(":")
+                else ""
+            )
             found[name] = val
             i += 2
         else:
@@ -116,12 +124,17 @@ def update_fish_config(config_path: Path) -> None:
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--yes", "-y", action="store_true", help="Skip confirmation")
-    p.add_argument("--config", type=Path, help="Path to fish config.fish (defaults to $XDG_CONFIG_HOME/fish/config.fish)")
+    p.add_argument(
+        "--config",
+        type=Path,
+        help="Path to fish config.fish (defaults to $XDG_CONFIG_HOME/fish/config.fish)",
+    )
     return p.parse_args()
 
 
 def xdg_config_home() -> Path:
     from os import environ
+
     return Path(environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config")))
 
 
@@ -132,7 +145,9 @@ def main() -> None:
 
     runtimes = ["python", "rust", "bun"]
 
-    print("This script will install runtimes via mise and update your Fish config to load mise-managed versions.")
+    print(
+        "This script will install runtimes via mise and update your Fish config to load mise-managed versions."
+    )
     if not args.yes:
         ans = input("Continue? [y/N] ")
         if ans.lower() != "y":
@@ -140,7 +155,9 @@ def main() -> None:
             sys.exit(0)
 
     if not ensure_mise_available():
-        print("mise not found in PATH. Please install mise first and re-run this script.")
+        print(
+            "mise not found in PATH. Please install mise first and re-run this script."
+        )
         sys.exit(1)
 
     install_runtimes(runtimes)
@@ -151,11 +168,15 @@ def main() -> None:
     bins_to_check = ["python", "rustc", "bun"]
     ok = verify_bins_in_fish(bins_to_check)
     if not ok:
-        print("Verification failed: some binaries were not found in fish interactive PATH.")
+        print(
+            "Verification failed: some binaries were not found in fish interactive PATH."
+        )
         print("Try restarting your terminal or run: source ", config_path)
         sys.exit(2)
 
-    print("Done. Restart your shell or run 'source' on your fish config to pick up changes.")
+    print(
+        "Done. Restart your shell or run 'source' on your fish config to pick up changes."
+    )
 
 
 if __name__ == "__main__":

@@ -22,19 +22,7 @@ cd ~/.dotfiles
 python3 scripts/setup.py
 ```
 
-### What the Setup Script Does
-
-The `setup.py` script handles the complete environment setup:
-
-1. ✅ **Installs Xcode Command Line Tools** (if needed)
-2. ✅ **Installs Homebrew** (if needed)
-3. ✅ **Creates `~/.config` directory structure**
-4. ✅ **Creates symlinks** for all configuration files
-5. ✅ **Installs Homebrew packages** from `Brewfile`
-6. ✅ **Sets Fish as default shell** (if not already)
-7. ✅ **Verifies installation** of all tools
-
-### Manual Installation
+### Installation
 
 If you prefer to install manually:
 
@@ -47,10 +35,11 @@ xcode-select --install
 
 # 3. Create config directory
 mkdir -p ~/.config
+mkdir -p ~/.config/fish
 
 # 4. Create symlinks
 ln -sf $(pwd)/ghostty ~/.config/ghostty
-ln -sf $(pwd)/fish ~/.config/fish
+ln -sf $(pwd)/fish/config.fish ~/.config/fish/config.fish
 ln -sf $(pwd)/starship ~/.config/starship
 ln -sf $(pwd)/nvim ~/.config/nvim
 ln -sf $(pwd)/tmux/tmux.conf ~/.tmux.conf
