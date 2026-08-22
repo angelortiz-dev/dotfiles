@@ -1,55 +1,67 @@
 if status is-interactive
-# Commands to run in interactive sessions can go here
+    # Commands to run in interactive sessions can go here
 
-# Disable greeting
-set fish_greeting
+    # Disable greeting
+    set fish_greeting
 
-# Starship prompt
-starship init fish | source
+    # Paths (Must be defined BEFORE mise activates)
+    fish_add_path -g /opt/homebrew/bin
+    fish_add_path -g $HOME/.local/bin
+    fish_add_path -g /Users/robot/.lmstudio/bin
+    
+    # Global Binary Paths for Cargo and Bun binaries
+    fish_add_path -g -a $HOME/.local/share/cargo/bin
+    fish_add_path -g -a $HOME/.local/share/bun/bin
 
-# Editor
-set -Ux EDITOR nvim
-set -Ux VISUAL nvim
+    # Starship prompt
+    starship init fish | source
 
-# Paths
-fish_add_path /opt/homebrew/bin
-fish_add_path ~/.local/bin
+    # Mise Activation (Handles environments dynamically)
+    mise activate fish | source
 
-# Aliases
-alias ll="eza -la --icons"
-alias ls="eza --icons"
-alias cat="bat --paging=never"
-alias vim="nvim"
-alias g="git"
+    # Editor
+    set -Ux EDITOR nvim
+    set -Ux VISUAL nvim
 
-# FZF integration
-fzf --fish | source
+    # Aliases
+    alias ll="eza -la --icons"
+    alias ls="eza --icons"
+    alias cat="bat -p"
+    alias vim="nvim"
+    alias g="git"
 
+    # FZF integration
+    fzf --fish | source
 end
 
 if test -n "$TMUX"
-  set -gx TERM tmux-256color
+    set -gx TERM tmux-256color
 else
-  set -gx TERM xterm-256color
+    set -gx TERM xterm-256color
 end
 
-# Docker
+# Docker Aliases
 alias d="docker"
 alias dc="docker compose"
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 alias dcb="docker compose build"
 
+# Homebrew Config
 set -gx HOMEBREW_BUNDLE_FILE ~/.config/brewfile/Brewfile
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
-# Python
+# Python Settings
 set -Ux PYTHONDONTWRITEBYTECODE 1
 set -Ux PYTHONUNBUFFERED 1
 
-# Ensure mise-managed versions are loaded (managed by scripts/setup_mise.py)
-# >>> MISE INIT - managed by setup_mise.py
-if type -q mise
-    eval (mise env fish)
-end
-# <<< MISE INIT - managed by setup_mise.py
+# Rust / Cargo Settings (Mise isolation)
+set -gx MISE_CARGO_HOME "$HOME/.local/share/cargo"
+set -gx MISE_RUSTUP_HOME "$HOME/.local/share/rustup"
+
+# Config Spec
+set -gx XDG_CONFIG_HOME ~/.config
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+

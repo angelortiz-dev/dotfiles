@@ -7,10 +7,47 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "disable_ai": false,
+  "edit_predictions": {
+    "ollama": {
+      "model": "qwen3.6:35b-a3b-q4_K_M"
+    },
+    "provider": "ollama"
+  },
+  "agent_servers": {
+    "github-copilot-cli": {
+      "type": "registry"
+    }
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "sidebar_side": "left",
+    "dock": "right",
+    "default_profile": "write",
+    "default_model": {
+      "effort": "high",
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini",
+      "enable_thinking": true,
+    },
+    "favorite_models": [],
+    "model_parameters": [],
+  },
   "terminal": {
     "shell": {
-      "program": "fish"
-    }
+      "program": "fish",
+    },
   },
   "icon_theme": "Catppuccin Mocha",
   "ui_font_size": 16,
@@ -19,5 +56,18 @@
     "mode": "dark",
     "light": "One Light",
     "dark": "Catppuccin Mocha",
+  },
+  "languages": {
+    "Python": {
+      "format_on_save": "on",
+      "formatter": {
+        "language_server": {
+          "name": "ruff",
+        },
+      },
+      "code_actions_on_format": {
+        "source.organizeImports.ruff": true,
+      },
+    },
   },
 }
